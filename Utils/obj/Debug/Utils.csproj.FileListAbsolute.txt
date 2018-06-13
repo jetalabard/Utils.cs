@@ -1,0 +1,6 @@
+C:\Users\jerem\source\repos\Utils\Utils\bin\Debug\Utils.dll
+C:\Users\jerem\source\repos\Utils\Utils\bin\Debug\Utils.pdb
+C:\Users\jerem\source\repos\Utils\Utils\obj\Debug\Utils.csprojResolveAssemblyReference.cache
+C:\Users\jerem\source\repos\Utils\Utils\obj\Debug\Utils.csproj.CoreCompileInputs.cache
+C:\Users\jerem\source\repos\Utils\Utils\obj\Debug\Utils.dll
+C:\Users\jerem\source\repos\Utils\Utils\obj\Debug\Utils.pdb
