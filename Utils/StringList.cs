@@ -32,7 +32,7 @@ namespace Utils
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string CheckIfGenericObjectHasTOStringMethod<T>(T item)
+        private string CheckIfGenericObjectHasToStringMethod<T>(T item)
         {
             string hasToString = string.Empty;
             try
@@ -64,7 +64,7 @@ namespace Utils
         /// <returns></returns>
         public int IndexOf<T>(T item)
         {
-            return base.IndexOf(CheckIfGenericObjectHasTOStringMethod(item));
+            return base.IndexOf(CheckIfGenericObjectHasToStringMethod(item));
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Utils
         /// <param name="item"></param>
         public void Insert<T>(int index, T item)
         {
-            base.Insert(index, CheckIfGenericObjectHasTOStringMethod(item));
+            base.Insert(index, CheckIfGenericObjectHasToStringMethod(item));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Utils
         /// <param name="item"></param>
         public void Add<T>(T item)
         {
-            base.Add(CheckIfGenericObjectHasTOStringMethod(item));
+            base.Add(CheckIfGenericObjectHasToStringMethod(item));
         }
         /// <summary>
         /// convert item T to string and check if stringlist contains this string
@@ -95,7 +95,7 @@ namespace Utils
         /// <returns></returns>
         public bool Contains<T>(T item)
         {
-            return base.Contains(CheckIfGenericObjectHasTOStringMethod(item));
+            return base.Contains(CheckIfGenericObjectHasToStringMethod(item));
 
         }
         /// <summary>
@@ -106,7 +106,7 @@ namespace Utils
         /// <returns></returns>
         public bool Remove<T>(T item)
         {
-            return base.Remove(CheckIfGenericObjectHasTOStringMethod(item));
+            return base.Remove(CheckIfGenericObjectHasToStringMethod(item));
         }
         /// <summary>
         ///add a collection of generic objets
@@ -234,6 +234,44 @@ namespace Utils
                 Update(i,  this[i] + endString);
             }
         }
+
+        /// <summary>
+        /// if list contains number, SUM all numbers of list
+        /// </summary>
+        public int Sum()
+        {
+            int sum = 0;
+            if (IsListOfNumbers())
+            {
+                this.ForEach(s => sum += s.ToNumber());
+            }
+            else
+            {
+                throw new InvalidOperationException("List contains something else that numbers");
+            }
+            return sum;
+        }
+
+
+        /// <summary>
+        /// if list contains number, SUM all numbers of list
+        /// </summary>
+        public bool IsListOfNumbers()
+        {
+            bool isNumber = true;
+            foreach (string number in this)
+            {
+
+                isNumber = number.IsNumber();
+                if (!isNumber)
+                {
+                    break;
+                }
+            }
+            return isNumber;
+        }
+
+      
 
 
     }

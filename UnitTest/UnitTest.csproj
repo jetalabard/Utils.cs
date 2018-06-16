@@ -52,6 +52,7 @@
     <Compile Include="GenericObjectWithoutToString.cs" />
     <Compile Include="StringListTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomStringTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

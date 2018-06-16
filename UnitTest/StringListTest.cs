@@ -173,7 +173,7 @@ namespace UnitTest
             };
             list.AddStringToStartForAll("C:/Users/jetalabard/");
 
-            Assert.AreEqual( "C:/Users/jetalabard/test.png", list[0]);
+            Assert.AreEqual("C:/Users/jetalabard/test.png", list[0]);
             Assert.AreEqual("C:/Users/jetalabard/test.csv", list[1]);
             Assert.AreEqual("C:/Users/jetalabard/test.jpg", list[2]);
         }
