@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Utils
 {
@@ -271,7 +272,45 @@ namespace Utils
             return isNumber;
         }
 
-      
+        /// <summary>
+        /// allows encrypt all elements in the list
+        /// </summary>
+        /// <returns></returns>
+        public StringList Encrypt()
+        {
+            return new StringList(this.Select(s => { s = s.Encrypt(); return s; }).ToList());
+        }
+
+        /// <summary>
+        /// get all elements which match with the pattern string
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public StringList PatternMatching(string pattern)
+        {
+            return new StringList(this.Where(s => s.IsMatch(pattern) == true ).ToList());
+        }
+
+        /// <summary>
+        /// get all elements which match with the pattern regex
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public StringList PatternMatching(Regex reg)
+        {
+            return new StringList(this.Where(s => s.IsMatchRegex(reg)).ToList());
+        }
+
+        /// <summary>
+        /// get all elements which match with the pattern regex
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public StringList PatternMatchingRegexString(string regexString)
+        {
+            return new StringList(this.Where(s => s.IsMatchRegexString(regexString)).ToList());
+        }
+
 
 
     }

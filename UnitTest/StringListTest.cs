@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utils;
+using System.Text.RegularExpressions;
 
 namespace UnitTest
 {
@@ -194,6 +195,82 @@ namespace UnitTest
             Assert.AreEqual("toto.png", list[1]);
             Assert.AreEqual("titi.png", list[2]);
         }
+
+
+        [TestMethod]
+        public void TestEncryptionSha256()
+        {
+            StringList list = new StringList
+            {
+                "test",
+                "toto",
+                "titi"
+
+            };
+            StringList listHashed = list.Encrypt();
+
+            Assert.AreNotEqual("test", listHashed[0]);
+            Assert.AreNotEqual("toto", listHashed[1]);
+            Assert.AreNotEqual("titi", listHashed[2]);
+
+        }
+
+        [TestMethod]
+        public void TestPatternMatchingStringSimple()
+        {
+            StringList list = new StringList
+            {
+                "test",
+                "toto",
+                "titi"
+
+            };
+            StringList listFiltered = list.PatternMatching("o");
+
+            Assert.AreEqual(listFiltered.Count, 1);
+            Assert.AreEqual("toto", listFiltered[0]);
+
+        }
+
+        [TestMethod]
+        public void TestPatternMatchingRegex()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+
+            };
+            StringList listFiltered = list.PatternMatching(new Regex(@"^[a-zA-Z0-9]\d{2}[a-zA-Z0-9](-\d{3}){2}[A-Za-z0-9]$"));
+
+            Assert.AreEqual(listFiltered.Count, 2);
+            Assert.AreEqual("1298-673-4192", listFiltered[0]);
+            Assert.AreEqual("A08Z-931-468A", listFiltered[1]);
+
+        }
+
+        [TestMethod]
+        public void TestPatternMatchingRegexString()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+
+            };
+            StringList listFiltered = list.PatternMatchingRegexString(@"^[a-zA-Z0-9]\d{2}[a-zA-Z0-9](-\d{3}){2}[A-Za-z0-9]$");
+
+            Assert.AreEqual(listFiltered.Count, 2);
+            Assert.AreEqual("1298-673-4192", listFiltered[0]);
+            Assert.AreEqual("A08Z-931-468A", listFiltered[1]);
+
+        }
+
+
 
     }
 }
