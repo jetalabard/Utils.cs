@@ -270,6 +270,140 @@ namespace UnitTest
 
         }
 
+        [TestMethod]
+        public void TestEqualMethod()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            StringList list2 = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+            
+            Assert.IsTrue(list == list2);
+
+        }
+
+        [TestMethod]
+        public void TestEqualsMethodNull()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            Assert.IsFalse(list.Equals(null));
+        }
+
+        [TestMethod]
+        public void TestEqualMethodNull()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            Assert.IsFalse(list == null);
+        }
+
+        [TestMethod]
+        public void TestNotEqualMethodNull()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            Assert.IsTrue(list != null);
+        }
+
+        [TestMethod]
+        public void TestEqualsMethod()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            StringList list2 = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            Assert.IsTrue(list.Equals(list2));
+
+        }
+
+        [TestMethod]
+        public void TestNotEqualMethod()
+        {
+            StringList list = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A"
+            };
+
+            StringList list2 = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            Assert.IsTrue(list != list2);
+
+        }
+
+        [TestMethod]
+        public void TestCheckOrder()
+        {
+            StringList list = new StringList
+            {
+                 "12345-KKA-1230",
+               "1298-673-4192",
+                "A08Z-931-468A",
+                "_A90-123-129X"
+
+            };
+
+            StringList list2 = new StringList
+            {
+                "1298-673-4192",
+                "_A90-123-129X",
+                "A08Z-931-468A",
+                "12345-KKA-1230"
+            };
+
+            Assert.IsTrue(list != list2);
+
+        }
+
 
 
     }

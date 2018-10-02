@@ -28,6 +28,32 @@ namespace Utils
         }
 
         /// <summary>
+        /// redefine egual operator
+        /// </summary>
+        /// <param name="firstList"></param>
+        /// <param name="secondList"></param>
+        /// <returns>true if egual else false</returns>
+        public static bool operator==(StringList firstList, StringList secondList)
+        {
+            if (ReferenceEquals(firstList, null))
+            {
+                return ReferenceEquals(secondList, null);
+            }
+            return firstList.Equals(secondList);
+        }
+
+        /// <summary>
+        /// redefine not egual operator
+        /// </summary>
+        /// <param name="firstList"></param>
+        /// <param name="secondList"></param>
+        /// <returns>true if not egual else false </returns>
+        public static bool operator !=(StringList firstList, StringList secondList)
+        {
+            return !(firstList == secondList);
+        }
+
+        /// <summary>
         /// check if parameter T has method ToString
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -192,6 +218,30 @@ namespace Utils
         }
 
         /// <summary>
+        /// translate list to string with each item separate by 'separator' parameter
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <param name="endSeparator">allows to know if there is a separator at the end of string</param>
+        /// <returns></returns>
+        public string Join(char separator, bool endSeparator = false)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < this.Count; i++)
+            {
+                sb.Append(this[i]);
+                if (i < this.Count - 1)
+                {
+                    sb.Append(separator);
+                }
+                else if (endSeparator && i == this.Count - 1)
+                {
+                    sb.Append(separator);
+                }
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// removes duplicates string
         /// </summary>
         /// <returns>the stringlist with duplicates string remove</returns>
@@ -309,6 +359,84 @@ namespace Utils
         public StringList PatternMatchingRegexString(string regexString)
         {
             return new StringList(this.Where(s => s.IsMatchRegexString(regexString)).ToList());
+        }
+
+        /// <summary>
+        /// compare Stringlist with oject
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            bool equals = false;
+            if(obj != null)
+            {
+                if(obj is StringList)
+                {
+                    StringList firstList = obj as StringList;
+                    equals = this.SequenceEqual(firstList);
+                }
+                else
+                {
+                    throw new ArgumentException("object is not a StringList");
+                }   
+            }
+            else
+            {
+                equals = false;
+            }
+            return equals;
+
+
+        }
+        
+
+        /// <summary>
+        /// check if size of list to compare is equal to current list
+        /// </summary>
+        /// <param name="listToCompare"></param>
+        /// <returns></returns>
+        private bool SizeEquals(StringList listToCompare)
+        {
+            bool sameCount = false;
+            if (listToCompare.Count == Count)
+            {
+                sameCount = true;
+            }
+            return sameCount;
+        }
+
+        /// <summary>
+        /// check if elements of list to compare is equal to current list
+        /// </summary>
+        /// <param name="listToCompare"></param>
+        /// <returns></returns>
+        private bool OrderEquals(StringList listToCompare)
+        {
+            var firstNotSecond = listToCompare.Except(this).ToList();
+            var secondNotFirst = this.Except(listToCompare).ToList();
+            return !firstNotSecond.Any() && !secondNotFirst.Any();
+        }
+
+        /// <summary>
+        /// check if elements of list to compare is equal to current list
+        /// </summary>
+        /// <param name="listToCompare"></param>
+        /// <returns></returns>
+        private bool ElementEquals(StringList listToCompare)
+        {
+            var firstNotSecond = listToCompare.Except(this).ToList();
+            var secondNotFirst = this.Except(listToCompare).ToList();
+            return !firstNotSecond.Any() && !secondNotFirst.Any();
+        }
+
+        /// <summary>
+        /// get hash code method
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
 
