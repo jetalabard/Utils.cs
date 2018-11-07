@@ -1,9 +1,15 @@
 ﻿using System;
-using System.Reflection;
 using System.Text.RegularExpressions;
+using Utils.Encryption;
 
 namespace Utils
 {
+    public enum EncryptionMode
+    {
+        SHA_256,
+        SHA_512
+    }
+
     public static class StringExtensions
     {
         /// <summary>
@@ -53,9 +59,20 @@ namespace Utils
         /// </summary>
         /// <param name="inputString"></param>
         /// <returns></returns>
-        public static string Encrypt(this string inputString)
+        public static string Encrypt(this string inputString, EncryptionMode mode = EncryptionMode.SHA_256)
         {
-            return SHA.GenerateSHA256String(inputString);
+            string encrypt = string.Empty;
+            if (mode == EncryptionMode.SHA_256)
+            {
+                encrypt = Sha.GenerateSHA256String(inputString);
+            }
+                
+            if (mode == EncryptionMode.SHA_512)
+            {
+                encrypt = Sha.GenerateSHA512String(inputString);
+            }
+                
+            return encrypt;
         }
 
         /// <summary>
@@ -86,6 +103,17 @@ namespace Utils
         public static bool IsMatchRegexString(this string inputString, string regexString)
         {
             return new Regex(regexString).IsMatch(inputString);
+        }
+
+        /// <summary>
+        /// allows to split with string
+        /// </summary>
+        /// <param name="inputString"></param>
+        /// <param name="regexString"></param>
+        /// <returns></returns>
+        public static string [] Split(this string inputString, string regexString)
+        {
+            return inputString.Split(new[] { regexString }, StringSplitOptions.None);
         }
     }
 }

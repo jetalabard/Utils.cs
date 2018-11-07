@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Utils
 {
@@ -62,26 +62,23 @@ namespace Utils
         private string CheckIfGenericObjectHasToStringMethod<T>(T item)
         {
             string hasToString = string.Empty;
-            try
+            if(item is string)
             {
-                MethodInfo m = item.GetType().GetMethod("ToString", Type.EmptyTypes, null);
-                if (m == null)
-                {
-                    throw new ArgumentNullException(string.Format("{0}.ToString method not found", item.GetType().Name));
-                }
-                else
-                {
-                    hasToString = item.ToString();
-                }
+                return item.ToString();
+            }
+            bool toStringExist = item.GetType().GetMethod("ToString").DeclaringType == item.GetType();
+            if (!toStringExist)
+            {
+                throw new ArgumentException(string.Format("{0}.ToString method not found", item.GetType().Name));
+            }
+            else
+            {
+                hasToString = item.ToString();
+            }
 
-            }
-            catch (AmbiguousMatchException)
-            {
-                throw new AmbiguousMatchException(string.Format("{0}.{1} has multiple public overloads.",
-                           item.GetType().Name, "ToString"));
-            }
             return hasToString;
         }
+        
 
         /// <summary>
         /// convert item T to string and get index of this string in stringlist
@@ -205,11 +202,11 @@ namespace Utils
             for (int i = 0; i < this.Count; i++)
             {
                 sb.Append(this[i]);
-                if (i < this.Count - 1)
+                if (i < Count - 1)
                 {
                     sb.Append(separator);
                 }
-                else if (endSeparator && i == this.Count - 1)
+                else if (endSeparator && i == Count - 1)
                 {
                     sb.Append(separator);
                 }
@@ -225,20 +222,7 @@ namespace Utils
         /// <returns></returns>
         public string Join(char separator, bool endSeparator = false)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < this.Count; i++)
-            {
-                sb.Append(this[i]);
-                if (i < this.Count - 1)
-                {
-                    sb.Append(separator);
-                }
-                else if (endSeparator && i == this.Count - 1)
-                {
-                    sb.Append(separator);
-                }
-            }
-            return sb.ToString();
+            return Join(separator.ToString(), endSeparator);
         }
 
         /// <summary>
@@ -269,7 +253,7 @@ namespace Utils
         /// <param name="startString"></param>
         public void AddStringToStartForAll(string startString)
         {
-            for(int i= 0;i < this.Count;i++)
+            for(int i= 0;i < Count;i++)
             {
                 Update(i, startString + this[i]);
             }
@@ -280,7 +264,7 @@ namespace Utils
         /// <param name="endString"></param>
         public void AddStringToEndForAll(string endString)
         {
-            for (int i = 0; i < this.Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 Update(i,  this[i] + endString);
             }
@@ -294,7 +278,7 @@ namespace Utils
             int sum = 0;
             if (IsListOfNumbers())
             {
-                this.ForEach(s => sum += s.ToNumber());
+                ForEach(s => sum += s.ToNumber());
             }
             else
             {
@@ -326,9 +310,9 @@ namespace Utils
         /// allows encrypt all elements in the list
         /// </summary>
         /// <returns></returns>
-        public StringList Encrypt()
+        public StringList Encrypt(EncryptionMode mode = EncryptionMode.SHA_256)
         {
-            return new StringList(this.Select(s => { s = s.Encrypt(); return s; }).ToList());
+            return new StringList(this.Select(s => { s = s.Encrypt(mode); return s; }).ToList());
         }
 
         /// <summary>
@@ -338,7 +322,7 @@ namespace Utils
         /// <returns></returns>
         public StringList PatternMatching(string pattern)
         {
-            return new StringList(this.Where(s => s.IsMatch(pattern) == true ).ToList());
+            return new StringList(this.Where(s => s.IsMatch(pattern)).ToList());
         }
 
         /// <summary>
@@ -378,7 +362,7 @@ namespace Utils
                 }
                 else
                 {
-                    throw new ArgumentException("object is not a StringList");
+                    throw new InvalidCastException("object is not a StringList");
                 }   
             }
             else
@@ -389,47 +373,8 @@ namespace Utils
 
 
         }
-        
 
-        /// <summary>
-        /// check if size of list to compare is equal to current list
-        /// </summary>
-        /// <param name="listToCompare"></param>
-        /// <returns></returns>
-        private bool SizeEquals(StringList listToCompare)
-        {
-            bool sameCount = false;
-            if (listToCompare.Count == Count)
-            {
-                sameCount = true;
-            }
-            return sameCount;
-        }
-
-        /// <summary>
-        /// check if elements of list to compare is equal to current list
-        /// </summary>
-        /// <param name="listToCompare"></param>
-        /// <returns></returns>
-        private bool OrderEquals(StringList listToCompare)
-        {
-            var firstNotSecond = listToCompare.Except(this).ToList();
-            var secondNotFirst = this.Except(listToCompare).ToList();
-            return !firstNotSecond.Any() && !secondNotFirst.Any();
-        }
-
-        /// <summary>
-        /// check if elements of list to compare is equal to current list
-        /// </summary>
-        /// <param name="listToCompare"></param>
-        /// <returns></returns>
-        private bool ElementEquals(StringList listToCompare)
-        {
-            var firstNotSecond = listToCompare.Except(this).ToList();
-            var secondNotFirst = this.Except(listToCompare).ToList();
-            return !firstNotSecond.Any() && !secondNotFirst.Any();
-        }
-
+        [ExcludeFromCodeCoverage]
         /// <summary>
         /// get hash code method
         /// </summary>

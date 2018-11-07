@@ -2,11 +2,11 @@
 {
     public class GenericObjectWithoutToString
     {
-        private string test;
+        private readonly string _test;
 
         public GenericObjectWithoutToString(string value)
         {
-            test = value;
+            _test = value;
         }
     }
 }

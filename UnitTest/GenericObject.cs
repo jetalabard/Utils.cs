@@ -2,7 +2,7 @@
 {
     public class GenericObject
     {
-        private string test;
+        private readonly string test;
 
         public GenericObject(string value)
         {

@@ -1,6 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utils;
 using System.IO;
+using System.Diagnostics.CodeAnalysis;
+using System;
+using Utils.Zip;
 
 namespace UnitTest
 {
@@ -18,6 +21,18 @@ namespace UnitTest
             Assert.IsTrue(File.Exists(currentDirectory + @"\zipData.zip"));
             Directory.Delete(directoryCreated);
             File.Delete(currentDirectory + @"\zipData.zip");
+
+
+        }
+
+        [TestMethod]
+        [ExcludeFromCodeCoverage]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestZipWithError()
+        {
+            string directoryCreated = "*-" + @"\data";
+            ZipUtility.ZipDirectory(directoryCreated, directoryCreated + @"\zipData.zip");
+
         }
 
         [TestMethod]
@@ -37,5 +52,15 @@ namespace UnitTest
             File.Delete(currentDirectory + @"\zipData.zip");
         }
 
+
+        [TestMethod]
+        [ExcludeFromCodeCoverage]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestunZipWithError()
+        {
+            string directoryCreated = "*-" + @"\data";
+            ZipUtility.UnZipDirectory(directoryCreated, directoryCreated + @"\zipData.zip");
+
+        }
     }
 }

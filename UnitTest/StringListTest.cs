@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utils;
 using System.Text.RegularExpressions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UnitTest
 {
@@ -26,7 +27,46 @@ namespace UnitTest
             Assert.AreEqual(2, list.Count);
         }
 
+        [TestMethod]
+        public void TestAddRangeStringlist()
+        {
+            StringList list = new StringList{ "test", "test2" };
+            StringList list2 = new StringList { "test3" };
+            list.AddRange(list2);
+            Assert.AreEqual("test", list[0]);
+            Assert.AreEqual("test2", list[1]);
+            Assert.AreEqual("test3", list[2]);
+            Assert.AreEqual(3, list.Count);
+        }
 
+        [TestMethod]
+        public void TestIsNumberList()
+        {
+            StringList list = new StringList();
+            list.AddRange(new List<GenericObject>() { new GenericObject("0"), new GenericObject("2") });
+            Assert.IsTrue(list.IsListOfNumbers());
+
+            list = new StringList();
+            list.AddRange(new List<GenericObject>() { new GenericObject("0"), new GenericObject("sdvsv") });
+            Assert.IsFalse(list.IsListOfNumbers());
+        }
+
+        [TestMethod]
+        public void TestAddRange()
+        {
+            StringList list = new StringList();
+            StringList list2 = new StringList();
+            list.AddRange(new List<GenericObject>() { new GenericObject("test"), new GenericObject("test2") });
+            list.AddRange(new List<GenericObject>() { new GenericObject("test3"), new GenericObject("test4") });
+            list.AddRange(list2);
+
+            Assert.AreEqual(4,list.Count);
+            Assert.AreEqual("test", list[0]);
+            Assert.AreEqual( "test2",list[1]);
+            Assert.AreEqual("test3", list[2]);
+            Assert.AreEqual( "test4", list[3]);
+
+        }
 
         [TestMethod]
         public void TestAddRangeGenericObject()
@@ -40,13 +80,23 @@ namespace UnitTest
 
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [ExcludeFromCodeCoverage]
         public void TestAddRangeGenericObjectWithoutToString()
         {
             StringList list = new StringList();
             list.AddRange(new List<GenericObjectWithoutToString>() { new GenericObjectWithoutToString("test"), new GenericObjectWithoutToString("test2") });
-            Assert.AreEqual("UnitTest.GenericObjectWithoutToString", list[0]);
-            Assert.AreEqual("UnitTest.GenericObjectWithoutToString", list[1]);
-            Assert.AreEqual(2, list.Count);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidCastException))]
+        [ExcludeFromCodeCoverage]
+        public void TestEquals()
+        {
+            StringList list = new StringList();
+            int itest = 0;
+            list.Equals(itest);
         }
 
 
@@ -129,6 +179,46 @@ namespace UnitTest
             StringList listWithRemoveItem = list.RemoveDuplicates();
 
             Assert.IsTrue(listWithRemoveItem.Count == 1);
+        }
+
+
+        [TestMethod]
+        public void TestSum()
+        {
+            StringList list = new StringList
+            {
+                "5",
+                "6"
+            };
+            int sum = list.Sum();
+            Assert.AreEqual(11,sum);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        [ExcludeFromCodeCoverage]
+        public void TestSumWithNoNumbers()
+        {
+            StringList list = new StringList
+            {
+                "test",
+                "test"
+            };
+            list.Sum();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        [ExcludeFromCodeCoverage]
+        public void TestSumWithNoNumbers2()
+        {
+            StringList list = new StringList
+            {
+                "test",
+                "5"
+            };
+            list.Sum();
         }
 
 
@@ -227,7 +317,7 @@ namespace UnitTest
             };
             StringList listFiltered = list.PatternMatching("o");
 
-            Assert.AreEqual(listFiltered.Count, 1);
+            Assert.AreEqual(1,listFiltered.Count);
             Assert.AreEqual("toto", listFiltered[0]);
 
         }
@@ -245,7 +335,7 @@ namespace UnitTest
             };
             StringList listFiltered = list.PatternMatching(new Regex(@"^[a-zA-Z0-9]\d{2}[a-zA-Z0-9](-\d{3}){2}[A-Za-z0-9]$"));
 
-            Assert.AreEqual(listFiltered.Count, 2);
+            Assert.AreEqual(2,listFiltered.Count);
             Assert.AreEqual("1298-673-4192", listFiltered[0]);
             Assert.AreEqual("A08Z-931-468A", listFiltered[1]);
 
@@ -264,7 +354,7 @@ namespace UnitTest
             };
             StringList listFiltered = list.PatternMatchingRegexString(@"^[a-zA-Z0-9]\d{2}[a-zA-Z0-9](-\d{3}){2}[A-Za-z0-9]$");
 
-            Assert.AreEqual(listFiltered.Count, 2);
+            Assert.AreEqual(2,listFiltered.Count);
             Assert.AreEqual("1298-673-4192", listFiltered[0]);
             Assert.AreEqual("A08Z-931-468A", listFiltered[1]);
 

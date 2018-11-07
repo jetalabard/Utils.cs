@@ -1,50 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Utils.Reader;
-using Utils.ReadWrite.Serializer;
-using Utils.Serializer;
+using System.Linq;
+using Utils.ReadWrite.Serialization;
+using Utils.ReadWrite.Serialization.StandardSerializer;
 
-namespace Utils.Reader
+namespace Utils.ReadWrite.Reader
 {
-    public class CsvReader : IReader
+    public class CsvReader<T> : IReader<T> where T:Serializable
     {
         /// <summary>
         /// represents csv separator
         /// </summary>
-        private char Separator;
+        private readonly char Separator;
 
         /// <summary>
         /// allows to know if there is a header of a file
         /// </summary>
-        private bool HasHeader;
+        private bool HasHeader
+        {
+            get
+            {
+                return Headers != null;
+            }
+        }
 
         /// <summary>
         /// list of each header in the file
         /// </summary>
-        private StringList Headers;
+        private readonly StringList Headers;
 
         /// <summary>
         /// constructor, init separtor character
+        /// if headers = null then no headers in file else there is a header in file define by string in stringlist
         /// </summary>
         /// <param name="separator"></param>
-        public CsvReader(char separator, bool header = false,StringList headers = null)
+        public CsvReader(char separator, StringList headers = null)
         {
             Separator = separator;
-            HasHeader = header;
+            Headers = headers;
+        }
+
+        private void CheckCorrectHeader(string line)
+        {
             if (HasHeader)
             {
-                Headers = headers;
+                StringList headers = new StringList(line.Split(Separator));
+                if (!headers.Equals(Headers))
+                {
+                    throw new ArgumentException("Headers defines not equal to headers in file");
+                }
             }
         }
 
-        private void ManageHeader(string line)
+        /// <summary>
+        /// allows to knows if file has header and if the header parameter is equal to header in file
+        /// </summary>
+        /// <param name="header"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public bool FileHasHeader(StringList header,string fileName)
         {
-            StringList headers = new StringList(line.Split(Separator));
-            if(!headers.Equals(Headers))
-            {
-                throw new Exception("Headers defines not equal to headers in file");
-            }
+             return header.Join(Separator) == FileReader.ReadLines(fileName).First();
         }
 
 
@@ -53,7 +70,7 @@ namespace Utils.Reader
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns>Lines</returns>
-        public StringList readLine(string fileName)
+        public StringList readLine(string fileName, bool withHeader = false)
         {
             StringList elements = new StringList();
 
@@ -65,7 +82,11 @@ namespace Utils.Reader
                     var line = reader.ReadLine();
                     if (count == 0 && HasHeader)
                     {
-                        ManageHeader(line);
+                        CheckCorrectHeader(line);
+                        if (withHeader)
+                        {
+                            elements.Add(line);
+                        }
                     }
                     else
                     {
@@ -73,7 +94,6 @@ namespace Utils.Reader
                     }
                     count++;
                 }
-                TestResultSize(count, elements);
             }
             return elements;
         }
@@ -84,38 +104,31 @@ namespace Utils.Reader
         /// <typeparam name="T"></typeparam>
         /// <param name="fileName"></param>
         /// <returns>Liste of T, one by line</returns>
-        public List<Serializable> read<T>(string fileName) where T: Serializable
+        public ListSerializable<T> read<Y>(string filePath) where Y : ListSerializable<T>
         {
-            List<Serializable> elements = new List<Serializable>();
-            if (typeof(T).BaseType == typeof(Serializable))
+            ListSerializable<T> elements = (Y)Activator.CreateInstance(typeof(Y));
+            using (var reader = new StreamReader(filePath))
             {
-                using (var reader = new StreamReader(fileName))
+                int count = 0;
+                while (!reader.EndOfStream)
                 {
-                    int count = 0;
-                    while (!reader.EndOfStream)
+                    var line = reader.ReadLine();
+                    if (count == 0 && HasHeader)
                     {
-                        var line = reader.ReadLine();
-                        if (count == 0 && HasHeader)
-                        {
-                            ManageHeader(line);
-                        }
-                        else
-                        {
-                            ISerializer serializer = new CsvSerializer(Separator);
-                            T element = serializer.Deserialize<T>(line);
-                            elements.Add(element);
-                            
-                        }
-                        count++;
+                        CheckCorrectHeader(line);
                     }
+                    else
+                    {
+                        IStandardSerializer<T> serializer = new CsvSerializer<T>(Separator);
+                        Serializable element = serializer.Deserialize(line);
+                        elements.Add((T)element);
 
-                    TestResultSize(count, elements);
+                    }
+                    count++;
                 }
+                
             }
-            else
-            {
-                throw new Exception("Invalid Type: is not a readable object");
-            }
+
             return elements;
 
         }
@@ -125,7 +138,7 @@ namespace Utils.Reader
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns>list of all values in all lines</returns>
-        public List<StringList> read(string fileName)
+        public List<StringList> read(string fileName, bool withHeader = false)
         {
             List<StringList> elements = new List<StringList>();
 
@@ -135,37 +148,31 @@ namespace Utils.Reader
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    if (count == 0 && HasHeader)
+                    if (HasHeader && count == 0)
                     {
-                        ManageHeader(line);
+                        CheckCorrectHeader(line);
+                        if (withHeader)
+                        {
+                            StringList listElements = new StringList(line.Split(';'));
+                            elements.Add(listElements);
+                        }
                     }
                     else
                     {
                         StringList listElements = new StringList(line.Split(';'));
                         elements.Add(listElements);
-                        
                     }
                     count++;
 
                 }
-                TestResultSize(count, elements);
             }
             return elements;
 
         }
 
-        /// <summary>
-        /// compare numbers of rows read and size of list
-        /// </summary>
-        /// <param name="count"></param>
-        /// <param name="elements"></param>
-        public void TestResultSize<T>(int count,List<T> elements)
+        Y IGenericReader<T>.read<Y>(string filePath)
         {
-            int numberOfRows = HasHeader ? count - 1 : count;
-            if (numberOfRows != elements.Count)
-            {
-                throw new Exception("Error during read file : ");
-            }
+            return (Y)read<Y>(filePath);
         }
     }
 }
