@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Utils.Encryption;
 
@@ -35,6 +36,10 @@ namespace Utils
             }
             return result;
         }
+
+
+
+
 
         /// <summary>
         /// allows to check if string is a valid email
@@ -73,6 +78,14 @@ namespace Utils
             }
                 
             return encrypt;
+        }
+
+
+        private static Random random = new Random();
+        public static string Random(this string inputString,int length, string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        {
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         /// <summary>

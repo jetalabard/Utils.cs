@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Utils.ReadWrite.Serialization;
-using Utils.ReadWrite.Serialization.StandardSerializer;
-using Utils.ReadWrite.Writer.Standard;
-using Utils.ReadWrite.Serialization.Default;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter.Serialization.StandardSerializer;
+using Utils.FileReaderWriter.Serialization.Default;
 
 namespace UnitTest.SerializeDeserialize.Serializer
 {
@@ -15,7 +14,7 @@ namespace UnitTest.SerializeDeserialize.Serializer
         {
             public string Attribute;
 
-            public Test(Dictionary<string, string> listOfElements) : base(listOfElements)
+            public Test(Dictionary<string, object> listOfElements) : base(listOfElements)
             {
             }
 
@@ -28,7 +27,7 @@ namespace UnitTest.SerializeDeserialize.Serializer
         [TestMethod]
         public void ConstructeurTest()
         {
-            Test t = new Test(new Dictionary<string, string>());
+            Test t = new Test(new Dictionary<string, object>());
             Assert.AreEqual("test",t.Attribute);
         }
 

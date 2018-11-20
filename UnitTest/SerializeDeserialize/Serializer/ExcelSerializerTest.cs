@@ -1,16 +1,16 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using Utils.ReadWrite.Serialization.SpecificSerializer;
 using System.Collections.Generic;
 using Utils;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.ObjectModel;
-using Utils.ReadWrite.Serialization;
-using Utils.ReadWrite.Reader;
-using Utils.ReadWrite.Writer;
-using Utils.ReadWrite.Writer.Specific;
-using Utils.ReadWrite.Writer.Standard;
+using Utils.FileReaderWriter;
+using Utils.FileReaderWriter.Specific;
+using Utils.FileReaderWriter.Reader;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter.Serialization.SpecificSerializer;
+using Utils.FileManagement;
 
 namespace UnitTest.SerializeDeserialize.Serializer
 {
@@ -33,7 +33,7 @@ namespace UnitTest.SerializeDeserialize.Serializer
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(ExcelFile);
+            FileManager.Delete(ExcelFile);
         }
 
         [TestMethod]
@@ -197,6 +197,48 @@ namespace UnitTest.SerializeDeserialize.Serializer
 
         }
 
+        [TestMethod]
+        public void ChangeCellExcel()
+        {
+            ExcelWriter<User> writer = new ExcelWriter<User>("Users", new StringList { "Name", "Firstname" });
+            writer.Write(new User("test", "test"), ExcelFile);
+            ExcelManager manager = new ExcelManager();
+            manager.ChangeCellValue(ExcelFile, "Users", "A2", "LALA");
+            manager.ChangeCellValue(ExcelFile, "Users", "B2", "LALA");
+
+            IReader<User> reader = new ExcelReader<User>("Users", new StringList { "Name", "Firstname" });
+            Collection<User> usersList = reader.read<UserList>(ExcelFile);
+
+            Assert.AreEqual(1, usersList.Count);
+
+            Assert.AreEqual("LALA", usersList[0].Name);
+            Assert.AreEqual("LALA", usersList[0].Firstname);
+        }
+
+
+        [TestMethod]
+        public void ChangeCellsExcel()
+        {
+            ListSerializable<User> users = new UserList();
+            users.Add(new User("Toto", "Titi"));
+            users.Add(new User("Tata", "Roro"));
+
+            ExcelWriter<User> writer = new ExcelWriter<User>("Users", new StringList { "Name", "Firstname" });
+            writer.Write<UserList>(users, ExcelFile);
+
+            new ExcelManager().ChangeCellsValue(ExcelFile, "Users",new Dictionary<string, object> { {"A2", "TEST"}, {"B2", "TEST" } });
+
+            IReader<User> reader = new ExcelReader<User>("Users", new StringList { "Name", "Firstname" });
+            Collection<User> usersList = reader.read<UserList>(ExcelFile);
+
+            Assert.AreEqual(2, usersList.Count);
+
+            Assert.AreEqual("TEST", usersList[0].Name);
+            Assert.AreEqual("TEST", usersList[0].Firstname);
+
+            Assert.AreEqual("Tata", usersList[1].Name);
+            Assert.AreEqual("Roro", usersList[1].Firstname);
+        }
 
 
         [TestMethod]
@@ -206,10 +248,10 @@ namespace UnitTest.SerializeDeserialize.Serializer
             users.Add(new User("Toto", "Titi"));
             users.Add(new User("Tata", "Roro"));
 
-            IWriter<User> writer = new CsvWriter<User>(';');
+            IWriter<User> writer = new ExcelWriter<User>("Users", new StringList { "Name", "Firstname" });
             writer.Write<UserList>(users, ExcelFile);
 
-            IReader<User> reader = new CsvReader<User>(';');
+            IReader<User> reader = new ExcelReader<User>("Users", new StringList { "Name", "Firstname" });
             Collection<User> usersList = reader.read<UserList>(ExcelFile);
 
             Assert.AreEqual(users.Count, usersList.Count);

@@ -2,11 +2,12 @@
 using System.IO;
 using System.Diagnostics.CodeAnalysis;
 using Utils;
-using Utils.ReadWrite.Serialization;
 using UnitTest.SerializeDeserialize.Serializer;
-using Utils.ReadWrite.Reader;
-using Utils.ReadWrite.Writer.Standard;
-using Utils.ReadWrite.Writer;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter.Standard;
+using Utils.FileReaderWriter;
+using Utils.FileReaderWriter.Reader;
+using Utils.FileManagement;
 
 namespace UnitTest.SerializeDeserialize
 {
@@ -27,7 +28,7 @@ namespace UnitTest.SerializeDeserialize
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(TxtFile);
+            FileManager.Delete(TxtFile);
         }
         
 

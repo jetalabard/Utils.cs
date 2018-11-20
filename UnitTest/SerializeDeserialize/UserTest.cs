@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utils;
 using System.Diagnostics.CodeAnalysis;
-using Utils.ReadWrite.Serialization;
-using Utils.ReadWrite.Serialization.StandardSerializer;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter.Serialization.StandardSerializer;
 
 namespace UnitTest.SerializeDeserialize
 {
@@ -15,7 +15,7 @@ namespace UnitTest.SerializeDeserialize
         internal class Test : Serializable {
 
             [ExcludeFromCodeCoverage]
-            public Test(Dictionary<string, string> listOfElements) : base(listOfElements)
+            public Test(Dictionary<string, object> listOfElements) : base(listOfElements)
             {
             }
             [ExcludeFromCodeCoverage]

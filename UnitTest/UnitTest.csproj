@@ -39,22 +39,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorTest.cs" />
+    <Compile Include="FileManagement\ExcelManagerTest.cs" />
+    <Compile Include="FileManagement\FileManagerTest.cs" />
     <Compile Include="GenericObject.cs" />
     <Compile Include="GenericObjectWithoutToString.cs" />
     <Compile Include="SerializeDeserialize\BindingFlag\ChangeBindingFlagsTest.cs" />
     <Compile Include="SerializeDeserialize\Deserializer\CsvReaderTest.cs" />
     <Compile Include="SerializeDeserialize\Deserializer\JsonReaderTest.cs" />
     <Compile Include="SerializeDeserialize\Deserializer\GenericReaderTest.cs" />
+    <Compile Include="SerializeDeserialize\Deserializer\ExcelReaderTest.cs" />
     <Compile Include="SerializeDeserialize\Deserializer\XMLReaderTest.cs" />
     <Compile Include="SerializeDeserialize\Serializer\CsvSerializeTest.cs" />
     <Compile Include="SerializeDeserialize\Serializer\JsonSerializeTest.cs" />
@@ -64,6 +71,7 @@
     <Compile Include="SerializeDeserialize\Serializer\XmlSerializeTest.cs" />
     <Compile Include="SerializeDeserialize\StringSerializableTest.cs" />
     <Compile Include="SerializeDeserialize\UserTest.cs" />
+    <Compile Include="TimerTest.cs" />
     <Compile Include="UserList.cs" />
     <Compile Include="SerializeDeserialize\User.cs" />
     <Compile Include="SerializeDeserialize\Serializer\SerializeTest.cs" />
@@ -84,9 +92,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EncryptionManagement\EncryptionManagement.csproj">
+      <Project>{20e55b71-3b66-40bb-8e11-13e9792d61af}</Project>
+      <Name>EncryptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileManagement\FileManagement.csproj">
+      <Project>{3F229FB2-2DA3-4238-A080-C00983168B16}</Project>
+      <Name>FileManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileReaderWriter\FileReaderWriter.csproj">
+      <Project>{FBDAE21A-9106-4532-B3B5-0CAED0A7CD9E}</Project>
+      <Name>FileReaderWriter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{42fe045a-21f0-4860-8d5f-d5b57a25988f}</Project>
       <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZipTool\ZipTool.csproj">
+      <Project>{cc36963a-a05e-4bfa-9d72-8b3820ac828a}</Project>
+      <Name>ZipTool</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

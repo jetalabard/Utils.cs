@@ -381,7 +381,7 @@ namespace Utils
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return GetHashCode();
         }
 
 

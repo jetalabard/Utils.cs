@@ -4,6 +4,7 @@ using System.IO;
 using System.Diagnostics.CodeAnalysis;
 using System;
 using Utils.Zip;
+using Utils.FileManagement;
 
 namespace UnitTest
 {
@@ -20,7 +21,7 @@ namespace UnitTest
 
             Assert.IsTrue(File.Exists(currentDirectory + @"\zipData.zip"));
             Directory.Delete(directoryCreated);
-            File.Delete(currentDirectory + @"\zipData.zip");
+            FileManager.Delete(currentDirectory + @"\zipData.zip");
 
 
         }
@@ -49,7 +50,7 @@ namespace UnitTest
 
             Assert.IsTrue(Directory.Exists(directoryCreated));
             Directory.Delete(directoryCreated);
-            File.Delete(currentDirectory + @"\zipData.zip");
+            FileManager.Delete(currentDirectory + @"\zipData.zip");
         }
 
 

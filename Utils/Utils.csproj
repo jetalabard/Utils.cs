@@ -30,35 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Json.NET.Web, Version=1.0.49.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Json.NET.Web.1.0.49\lib\portable45-net45+win8+wpa81\Json.NET.Web.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
-      <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPPlus">
+      <HintPath>..\FileReaderWriter\bin\Debug\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
-      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
-      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
-      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -72,53 +47,23 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManagement\ExcelManager.cs" />
-    <Compile Include="ReadWrite\Reader\DefaultReader.cs" />
-    <Compile Include="ReadWrite\Reader\ExcelReader.cs" />
-    <Compile Include="ReadWrite\Reader\IGenericReader.cs" />
-    <Compile Include="ReadWrite\Serialization\Default\DefaultBasicSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\ISerializable.cs" />
-    <Compile Include="ReadWrite\Serialization\ISerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\Reflection\AccessProperty.cs" />
-    <Compile Include="ReadWrite\Serialization\Reflection\CreateInstanceManager.cs" />
-    <Compile Include="ReadWrite\Serialization\Default\IBasicSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\Default\DefaultSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\Reflection\BinderFlags.cs" />
-    <Compile Include="ReadWrite\Serialization\SpecificSerializer\ISpecificSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\StandardSerializer\IStandardSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\ListSerializable.cs" />
-    <Compile Include="ReadWrite\Reader\FileReader.cs" />
-    <Compile Include="ReadWrite\Reader\XML\Loader.cs" />
-    <Compile Include="ReadWrite\Reader\XML\XmlReader.cs" />
-    <Compile Include="ReadWrite\Serialization\SpecificSerializer\ExcelSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\StringSerializable.cs" />
-    <Compile Include="ReadWrite\Writer\AbstractWriter.cs" />
-    <Compile Include="ReadWrite\Writer\IWriter.cs" />
-    <Compile Include="ReadWrite\Writer\Standard\CsvWriter.cs" />
-    <Compile Include="ReadWrite\Writer\Specific\ExcelWriter.cs" />
-    <Compile Include="ReadWrite\Writer\Standard\FileWriter.cs" />
-    <Compile Include="ReadWrite\Reader\JsonReader.cs" />
-    <Compile Include="ReadWrite\Serialization\StandardSerializer\CsvSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\StandardSerializer\JsonSerializer.cs" />
-    <Compile Include="ReadWrite\Serialization\StandardSerializer\XmlSerializer.cs" />
-    <Compile Include="ReadWrite\Writer\Standard\JsonWriter.cs" />
-    <Compile Include="ReadWrite\Writer\Standard\StandardWriter.cs" />
-    <Compile Include="ReadWrite\Writer\Standard\DefaultWriter.cs" />
-    <Compile Include="ReadWrite\Writer\Standard\XmlWriter.cs" />
-    <Compile Include="Zipping\ZipUtility.cs" />
-    <Compile Include="ReadWrite\Reader\CsvReader.cs" />
-    <Compile Include="ReadWrite\Reader\IReader.cs" />
-    <Compile Include="ReadWrite\Serialization\Serializable.cs" />
-    <Compile Include="Encryption\Sha.cs" />
+    <Compile Include="Color.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringList.cs" />
+    <Compile Include="Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EncryptionManagement\EncryptionManagement.csproj">
+      <Project>{20E55B71-3B66-40BB-8E11-13E9792D61AF}</Project>
+      <Name>EncryptionManagement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

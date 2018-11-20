@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Text;
-using Utils.ReadWrite.Reader;
+using Utils.FileManagement;
+using Utils.FileReaderWriter.Reader;
 
 namespace UnitTest.SerializeDeserialize
 {
@@ -22,7 +23,7 @@ namespace UnitTest.SerializeDeserialize
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(txtFile);
+            FileManager.Delete(txtFile);
         }
 
       

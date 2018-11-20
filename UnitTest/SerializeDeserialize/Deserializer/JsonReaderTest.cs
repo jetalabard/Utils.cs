@@ -4,9 +4,10 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using Utils.ReadWrite.Reader;
-using Utils.ReadWrite.Serialization;
-using Utils.ReadWrite.Writer.Standard;
+using Utils.FileManagement;
+using Utils.FileReaderWriter.Reader;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter.Standard;
 
 namespace UnitTest.SerializeDeserialize.Deserializer
 {
@@ -28,7 +29,7 @@ namespace UnitTest.SerializeDeserialize.Deserializer
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(JsonFile);
+            FileManager.Delete(JsonFile);
         }
 
         [TestMethod]

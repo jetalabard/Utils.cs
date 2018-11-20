@@ -1,13 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Utils.ReadWrite.Serialization;
-using Utils.ReadWrite.Writer;
-using Utils.ReadWrite.Writer.Standard;
-using Utils.ReadWrite.Reader;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using Utils;
-using Utils.ReadWrite.Writer.Specific;
 using UnitTest.SerializeDeserialize.Serializer;
+using Utils.FileReaderWriter.Reader;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter;
+using Utils.FileReaderWriter.Standard;
+using Utils.FileReaderWriter.Reader.XML;
+using Utils.FileReaderWriter.Specific;
+using Utils.FileManagement;
 
 namespace UnitTest.SerializeDeserialize.Deserializer
 {
@@ -42,11 +43,11 @@ namespace UnitTest.SerializeDeserialize.Deserializer
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(CsvFile);
-            File.Delete(TxtFile);
-            File.Delete(XmlFile);
-            File.Delete(JsonFile);
-            File.Delete(XlsxFile);
+            FileManager.Delete(CsvFile);
+            FileManager.Delete(TxtFile);
+            FileManager.Delete(XmlFile);
+            FileManager.Delete(JsonFile);
+            FileManager.Delete(XlsxFile);
         }
 
         [TestMethod]

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FBDAE21A-9106-4532-B3B5-0CAED0A7CD9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FileReaderWriter</RootNamespace>
+    <AssemblyName>FileReaderWriter</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\UnitTest\bin\Debug\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reader\CsvReader.cs" />
+    <Compile Include="Reader\DefaultReader.cs" />
+    <Compile Include="Reader\ExcelReader.cs" />
+    <Compile Include="Reader\FileReader.cs" />
+    <Compile Include="Reader\IGenericReader.cs" />
+    <Compile Include="Reader\IReader.cs" />
+    <Compile Include="Reader\JsonReader.cs" />
+    <Compile Include="Reader\XML\Loader.cs" />
+    <Compile Include="Reader\XML\XmlReader.cs" />
+    <Compile Include="Serialization\Default\DefaultBasicSerializer.cs" />
+    <Compile Include="Serialization\Default\DefaultSerializer.cs" />
+    <Compile Include="Serialization\Default\IBasicSerializer.cs" />
+    <Compile Include="Serialization\ISerializable.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\ListSerializable.cs" />
+    <Compile Include="Serialization\Reflection\AccessProperty.cs" />
+    <Compile Include="Serialization\Reflection\BinderFlags.cs" />
+    <Compile Include="Serialization\Reflection\CreateInstanceManager.cs" />
+    <Compile Include="Serialization\Serializable.cs" />
+    <Compile Include="Serialization\SpecificSerializer\ExcelSerializer.cs" />
+    <Compile Include="Serialization\SpecificSerializer\ISpecificSerializer.cs" />
+    <Compile Include="Serialization\StandardSerializer\CsvSerializer.cs" />
+    <Compile Include="Serialization\StandardSerializer\IStandardSerializer.cs" />
+    <Compile Include="Serialization\StandardSerializer\JsonSerializer.cs" />
+    <Compile Include="Serialization\StandardSerializer\XmlSerializer.cs" />
+    <Compile Include="Serialization\StringSerializable.cs" />
+    <Compile Include="Writer\AbstractWriter.cs" />
+    <Compile Include="Writer\IWriter.cs" />
+    <Compile Include="Writer\Specific\ExcelWriter.cs" />
+    <Compile Include="Writer\Standard\CsvWriter.cs" />
+    <Compile Include="Writer\Standard\DefaultWriter.cs" />
+    <Compile Include="Writer\Standard\FileWriter.cs" />
+    <Compile Include="Writer\Standard\JsonWriter.cs" />
+    <Compile Include="Writer\Standard\StandardWriter.cs" />
+    <Compile Include="Writer\Standard\XmlWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FileManagement\FileManagement.csproj">
+      <Project>{3F229FB2-2DA3-4238-A080-C00983168B16}</Project>
+      <Name>FileManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{42FE045A-21F0-4860-8D5F-D5B57A25988F}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Utils;
-using Utils.ReadWrite.Serialization;
+using Utils.FileReaderWriter.Serialization;
 
 namespace UnitTest.SerializeDeserialize
 {
@@ -28,7 +28,7 @@ namespace UnitTest.SerializeDeserialize
         /// <param name="Name"></param>
         /// <param name="Firstname"></param>
         public User(string Name, string Firstname)
-            :base(new Dictionary<string, string>() { { "Name",Name }, { "Firstname", Firstname } })
+            :base(new Dictionary<string, object>() { { "Name",Name }, { "Firstname", Firstname } })
         {
             //call construct method in parent class
         }
@@ -45,9 +45,9 @@ namespace UnitTest.SerializeDeserialize
         /// </summary>
         public override void Construct()
         {
-            Dictionary<string, string> elements = getElements();
-            Name = elements["Name"];
-            Firstname = elements["Firstname"];
+            Dictionary<string, object> elements = getElements();
+            Name = elements["Name"] as string;
+            Firstname = elements["Firstname"] as string;
         }
 
         /// <summary>

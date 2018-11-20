@@ -5,11 +5,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Utils;
-using Utils.ReadWrite.Reader;
-using Utils.ReadWrite.Serialization;
-using Utils.ReadWrite.Serialization.StandardSerializer;
-using Utils.ReadWrite.Writer;
-using Utils.ReadWrite.Writer.Standard;
+using Utils.FileManagement;
+using Utils.FileReaderWriter;
+using Utils.FileReaderWriter.Reader;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter.Serialization.StandardSerializer;
+using Utils.FileReaderWriter.Standard;
 
 namespace UnitTest.SerializeDeserialize.Serializer
 {
@@ -31,7 +32,7 @@ namespace UnitTest.SerializeDeserialize.Serializer
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(CsvFile);
+            FileManager.Delete(CsvFile);
         }
 
         [TestMethod]

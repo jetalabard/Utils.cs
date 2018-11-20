@@ -6,10 +6,12 @@ using UnitTest.SerializeDeserialize;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 using System.Collections.ObjectModel;
-using Utils.ReadWrite.Serialization;
-using Utils.ReadWrite.Writer.Standard;
-using Utils.ReadWrite.Writer;
-using Utils.ReadWrite.Reader;
+using Utils.FileReaderWriter.Standard;
+using Utils.FileReaderWriter;
+using Utils.FileReaderWriter.Reader.XML;
+using Utils.FileReaderWriter.Serialization;
+using Utils.FileReaderWriter.Reader;
+using Utils.FileManagement;
 
 namespace UnitTest.Reader
 {
@@ -31,7 +33,7 @@ namespace UnitTest.Reader
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(XmlFile);
+            FileManager.Delete(XmlFile);
         }
 
         [TestMethod]

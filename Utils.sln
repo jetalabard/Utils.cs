@@ -1,11 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2002
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{42FE045A-21F0-4860-8D5F-D5B57A25988F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{B960FCD9-0DEA-42AB-B39F-08C4994F629C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlackTools", "SlackTools\SlackTools.csproj", "{03C81F26-8BA2-438D-B68C-BF19168DA5C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlackTest", "SlackTest\SlackTest.csproj", "{36F5029D-BBAE-4FE4-B1C4-0416D995D3D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileReaderWriter", "FileReaderWriter\FileReaderWriter.csproj", "{FBDAE21A-9106-4532-B3B5-0CAED0A7CD9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagement", "FileManagement\FileManagement.csproj", "{3F229FB2-2DA3-4238-A080-C00983168B16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipTool", "ZipTool\ZipTool.csproj", "{CC36963A-A05E-4BFA-9D72-8B3820AC828A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionManagement", "EncryptionManagement\EncryptionManagement.csproj", "{20E55B71-3B66-40BB-8E11-13E9792D61AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{15EA3C4C-F782-44F3-9972-B6262A0C7992}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +35,37 @@ Global
 		{B960FCD9-0DEA-42AB-B39F-08C4994F629C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B960FCD9-0DEA-42AB-B39F-08C4994F629C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B960FCD9-0DEA-42AB-B39F-08C4994F629C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C81F26-8BA2-438D-B68C-BF19168DA5C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C81F26-8BA2-438D-B68C-BF19168DA5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C81F26-8BA2-438D-B68C-BF19168DA5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C81F26-8BA2-438D-B68C-BF19168DA5C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F5029D-BBAE-4FE4-B1C4-0416D995D3D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F5029D-BBAE-4FE4-B1C4-0416D995D3D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F5029D-BBAE-4FE4-B1C4-0416D995D3D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F5029D-BBAE-4FE4-B1C4-0416D995D3D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBDAE21A-9106-4532-B3B5-0CAED0A7CD9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBDAE21A-9106-4532-B3B5-0CAED0A7CD9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBDAE21A-9106-4532-B3B5-0CAED0A7CD9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDAE21A-9106-4532-B3B5-0CAED0A7CD9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F229FB2-2DA3-4238-A080-C00983168B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F229FB2-2DA3-4238-A080-C00983168B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F229FB2-2DA3-4238-A080-C00983168B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F229FB2-2DA3-4238-A080-C00983168B16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC36963A-A05E-4BFA-9D72-8B3820AC828A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC36963A-A05E-4BFA-9D72-8B3820AC828A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC36963A-A05E-4BFA-9D72-8B3820AC828A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC36963A-A05E-4BFA-9D72-8B3820AC828A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20E55B71-3B66-40BB-8E11-13E9792D61AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E55B71-3B66-40BB-8E11-13E9792D61AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20E55B71-3B66-40BB-8E11-13E9792D61AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20E55B71-3B66-40BB-8E11-13E9792D61AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B960FCD9-0DEA-42AB-B39F-08C4994F629C} = {15EA3C4C-F782-44F3-9972-B6262A0C7992}
+		{36F5029D-BBAE-4FE4-B1C4-0416D995D3D7} = {15EA3C4C-F782-44F3-9972-B6262A0C7992}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4407703F-038B-49E1-BE8D-BD30D99E8CAD}

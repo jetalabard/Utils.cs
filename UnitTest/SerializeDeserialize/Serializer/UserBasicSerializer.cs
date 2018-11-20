@@ -1,5 +1,5 @@
 ﻿using Utils;
-using Utils.ReadWrite.Serialization.Default;
+using Utils.FileReaderWriter.Serialization.Default;
 
 namespace UnitTest.SerializeDeserialize.Serializer
 {

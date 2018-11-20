@@ -7,9 +7,10 @@ using Utils;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Collections.ObjectModel;
-using Utils.ReadWrite.Writer;
-using Utils.ReadWrite.Reader;
-using Utils.ReadWrite.Writer.Standard;
+using Utils.FileReaderWriter.Reader;
+using Utils.FileReaderWriter;
+using Utils.FileReaderWriter.Standard;
+using Utils.FileManagement;
 
 namespace UnitTest.Reader
 {
@@ -31,7 +32,7 @@ namespace UnitTest.Reader
         [TestCleanup()]
         public void Cleanup()
         {
-            File.Delete(CsvFile);
+            FileManager.Delete(CsvFile);
         }
 
         [TestMethod]

@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Utils.ReadWrite.Serialization;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Util.FileReaderWriters.Serialization;
 
 namespace UnitTest.SerializeDeserialize
 {
