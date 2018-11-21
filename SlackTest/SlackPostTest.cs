@@ -13,8 +13,8 @@ namespace SlackTest
     public class SlackPostTest
     {
         private static string randomString;
-        private static string urlWithAccessToken = "https://hooks.slack.com/services/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";
-        private const string token = "xoxp-477650700320-478285918707-478289490579-564b9abc7cfac15a5b071600d597a646";
+        private static string urlWithAccessToken = "https://hooks.slack.com/services/TDTCJZN/FBOBCOCBZPDC/DOVBO6524165";
+        private const string token = "ssvsvsvsdcsdvSDVQVQZEVFezc<qec";
 
 
         [TestMethod]
